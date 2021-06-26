@@ -1,17 +1,14 @@
-import { getCustomRepository } from 'typeorm';
+import { UserRepository } from '@/repositories';
+import { AuthenticateDTO } from '@/dtos';
+
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
-import { UserRepository } from '@/repositories';
-
-interface IAuthenticateRequest {
-  email: string;
-  password: string;
-}
-
 export class AuthenticateUserService {
-  async execute({ email, password }: IAuthenticateRequest) {
-    const userRepository = getCustomRepository(UserRepository);
+  async execute (data: AuthenticateDTO) {
+    const { email, password } = data;
+
+    const userRepository = new UserRepository();
 
     // Verificar se email existe
     const user = await userRepository.findByEmail(email);
@@ -20,9 +17,6 @@ export class AuthenticateUserService {
       throw new Error('Email/Password incorrect');
     }
 
-    // verificar se senha está correta
-
-    // 123456 / 783645734-sdhfhsdf7762374234234
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
@@ -30,10 +24,7 @@ export class AuthenticateUserService {
     }
 
     // Gerar token
-    const token = sign(
-      {
-        email: user.email,
-      },
+    const token = sign({ email: user.email },
       '4f93ac9d10cb751b8c9c646bc9dbccb9',
       {
         subject: user.id,
