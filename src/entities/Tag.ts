@@ -11,7 +11,7 @@ import { Expose } from "class-transformer";
 import { v4 as uuid } from "uuid";
 
 @Entity("tags")
-class Tag {
+export class Tag {
   @PrimaryColumn()
   readonly id: string;
 
@@ -35,5 +35,3 @@ class Tag {
     }
   }
 }
-
-export { Tag };

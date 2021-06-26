@@ -7,11 +7,11 @@ import {
   ManyToOne,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { Tag } from "./Tag";
-import { User } from "./User";
+import { Tag } from "./tag";
+import { User } from "./user";
 
 @Entity("compliments")
-class Compliment {
+export class Compliment {
   @PrimaryColumn()
   readonly id: string;
 
@@ -48,5 +48,3 @@ class Compliment {
     }
   }
 }
-
-export { Compliment };
