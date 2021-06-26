@@ -14,9 +14,7 @@ export class AuthenticateUserService {
     const userRepository = getCustomRepository(UserRepository);
 
     // Verificar se email existe
-    const user = await userRepository.findOne({
-      email,
-    });
+    const user = await userRepository.findByEmail(email);
 
     if (!user) {
       throw new Error('Email/Password incorrect');

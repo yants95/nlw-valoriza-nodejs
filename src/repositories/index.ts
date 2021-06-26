@@ -1,3 +1,4 @@
 export * from './compliment-repository';
 export * from './tag-repository';
-export * from './user-repository';
+export * from './implementations';
+export * from './interfaces';
