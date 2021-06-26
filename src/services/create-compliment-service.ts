@@ -9,7 +9,7 @@ interface IComplimentRequest {
   message: string;
 }
 
-class CreateComplimentService {
+export class CreateComplimentService {
   async execute({
     tag_id,
     user_sender,
@@ -43,5 +43,3 @@ class CreateComplimentService {
     return compliment;
   }
 }
-
-export { CreateComplimentService };

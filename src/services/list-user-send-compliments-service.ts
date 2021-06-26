@@ -1,7 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories";
 
-class ListUserSendComplimentsService {
+export class ListUserSendComplimentsService {
   async execute(user_id: string) {
     const complimentsRepositories = getCustomRepository(
       ComplimentsRepositories
@@ -16,5 +16,3 @@ class ListUserSendComplimentsService {
     return compliments;
   }
 }
-
-export { ListUserSendComplimentsService };

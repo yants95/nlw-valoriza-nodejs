@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { UsersRepositories } from "../repositories/UsersRepositories";
 import { classToPlain } from "class-transformer";
 
-class ListUserService {
+export class ListUserService {
   async execute() {
     const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -11,5 +11,3 @@ class ListUserService {
     return classToPlain(users);
   }
 }
-
-export { ListUserService };

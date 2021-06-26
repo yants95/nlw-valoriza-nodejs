@@ -9,7 +9,7 @@ interface IUserRequest {
   password: string;
 }
 
-class CreateUserService {
+export class CreateUserService {
   async execute({ name, email, admin = false, password }: IUserRequest) {
     const usersRepository = getCustomRepository(UsersRepositories);
 
@@ -39,5 +39,3 @@ class CreateUserService {
     return user;
   }
 }
-
-export { CreateUserService };
