@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { ensureAdmin, ensureAuthenticated } from "./middlewares";
+import { ensureAdmin, ensureAuthenticated } from '@/middlewares';
 
 import { 
   CreateUserController, CreateTagController, AuthenticateUserController, CreateComplimentController,
   ListUserSendComplimentsController, ListUserReceiveComplimentsController, ListTagsController, ListUsersController
-} from './controllers';
+} from '@/controllers';
 
 const router = Router();
 
