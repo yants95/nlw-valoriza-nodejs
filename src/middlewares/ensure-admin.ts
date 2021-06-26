@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { UserRepository } from "../repositories";
-import { getCustomRepository } from "typeorm";
+import { Request, Response, NextFunction } from 'express';
+import { UserRepository } from '@/repositories';
+import { getCustomRepository } from 'typeorm';
 
 export async function ensureAdmin(
   request: Request,
@@ -20,6 +20,6 @@ export async function ensureAdmin(
   }
 
   return response.status(401).json({
-    error: "Unauthorized",
+    error: 'Unauthorized',
   });
 }
