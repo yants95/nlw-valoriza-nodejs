@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { ensureAdmin } from "./middlewares/ensureAdmin";
-import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { ensureAdmin, ensureAuthenticated } from "./middlewares";
 
 import { 
   CreateUserController, CreateTagController, AuthenticateUserController, CreateComplimentController,
