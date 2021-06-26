@@ -19,4 +19,8 @@ export class TagRepository implements TagRepositoryInterface {
   async findByName (name: string): Promise<Tag> {
     return await this.repository.findOne({ name });
   }
+
+  async list (): Promise<Tag[]> {
+    return await this.repository.find();
+  }
 }
