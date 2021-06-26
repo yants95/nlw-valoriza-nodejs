@@ -1,20 +1,20 @@
-import { TagRepository } from '@/repositories';
+import { TagRepositoryInterface } from '@/repositories';
 
+import { injectable, inject } from 'tsyringe';
+@injectable()
 export class CreateTagService {
+  constructor (
+    @inject('TagRepository')
+    private readonly tagRepository: TagRepositoryInterface
+  ) {}
+
   async execute(name: string) {
-    const tagRepository = new TagRepository();
+    if (!name) throw new Error('Incorrect name!');
 
-    if (!name) {
-      throw new Error('Incorrect name!');
-    }
+    const tagAlreadyExists = await this.tagRepository.findByName(name);
 
-    // SELECT * FROM TAGS WHERE NAME = 'name'
-    const tagAlreadyExists = await tagRepository.findByName(name);
+    if (tagAlreadyExists) throw new Error('Tag already exists!');
 
-    if (tagAlreadyExists) {
-      throw new Error('Tag already exists!');
-    };
-
-    return await tagRepository.create(name);
+    return await this.tagRepository.create(name);
   }
 }
