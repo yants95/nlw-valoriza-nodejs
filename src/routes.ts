@@ -1,14 +1,11 @@
 import { Router } from "express";
-import { CreateUserController } from "./controllers/CreateUserController";
-import { CreateTagController } from "./controllers/CreateTagController";
 import { ensureAdmin } from "./middlewares/ensureAdmin";
-import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
-import { CreateComplimentController } from "./controllers/CreateComplimentController";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
-import { ListUserSendComplimentsController } from "./controllers/ListUserSendComplimentsController";
-import { ListUserReceiveComplimentsController } from "./controllers/ListUserReceiveComplimentsController";
-import { ListTagsController } from "./controllers/ListTagsController";
-import { ListUsersController } from "./controllers/ListUsersController";
+
+import { 
+  CreateUserController, CreateTagController, AuthenticateUserController, CreateComplimentController,
+  ListUserSendComplimentsController, ListUserReceiveComplimentsController, ListTagsController, ListUsersController
+} from './controllers';
 
 const router = Router();
 

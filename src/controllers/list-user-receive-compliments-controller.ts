@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ListUserReceiveComplimentsService } from "../services/ListUserReceiveComplimentsService";
 
-class ListUserReceiveComplimentsController {
+export class ListUserReceiveComplimentsController {
   async handle(request: Request, response: Response) {
     const { user_id } = request;
 
@@ -15,5 +15,3 @@ class ListUserReceiveComplimentsController {
     return response.json(compliments);
   }
 }
-
-export { ListUserReceiveComplimentsController };
