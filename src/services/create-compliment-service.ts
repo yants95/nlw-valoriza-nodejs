@@ -1,23 +1,30 @@
-import { ComplimentRepository, UserRepository } from '@/repositories';
+import { ComplimentRepositoryInterface, UserRepositoryInterface } from '@/repositories';
 import { ComplimentDTO } from '@/dtos';
 
+import { injectable, inject } from 'tsyringe';
+
+@injectable()
 export class CreateComplimentService {
+  constructor (
+    @inject('ComplimentRepository')
+    private readonly complimentRepository: ComplimentRepositoryInterface,
+    @inject('UserRepository')
+    private readonly userRepository: UserRepositoryInterface
+  ) {}
+
   async execute(data: ComplimentDTO) {
     const { user_receiver, user_sender } = data;
-
-    const complimentRepository = new ComplimentRepository(); 
-    const userRepository = new UserRepository();
 
     if (user_sender === user_receiver) {
       throw new Error('Incorrect User Receiver');
     }
 
-    const userReceiverExists = await userRepository.findById(user_receiver);
+    const userReceiverExists = await this.userRepository.findById(user_receiver);
 
     if (!userReceiverExists) {
       throw new Error('User Receiver does not exists!');
     }
 
-    return await complimentRepository.create(data);
+    return await this.complimentRepository.create(data);
   }
 }

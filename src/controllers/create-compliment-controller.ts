@@ -1,19 +1,18 @@
-import { Request, Response } from 'express';
 import { CreateComplimentService } from '@/services';
+import { ComplimentDTO } from '@/dtos';
 
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 export class CreateComplimentController {
   async handle(request: Request, response: Response) {
-    const { tag_id, user_receiver, message } = request.body;
-    const { user_id } = request;
+    const complimentService = container.resolve(CreateComplimentService);
 
-    const createComplimentService = new CreateComplimentService();
+    const complimentObject: ComplimentDTO = {
+      ...request.body,
+      user_sender: request.user_id
+    }
 
-    const compliment = await createComplimentService.execute({
-      tag_id,
-      user_sender: user_id,
-      user_receiver,
-      message,
-    });
+    const compliment = await complimentService.execute(complimentObject);
 
     return response.json(compliment);
   }

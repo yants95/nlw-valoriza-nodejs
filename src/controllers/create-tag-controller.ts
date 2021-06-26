@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { CreateTagService } from '@/services';
-import { TagRepository } from '@/repositories';
+import { container } from 'tsyringe';
 
 export class CreateTagController {
   async handle(request: Request, response: Response) {
-    const tagRepository = new TagRepository();
-    const createTagService = new CreateTagService(tagRepository);
-    const tag = await createTagService.execute(request.body.name);
+    const tagService = container.resolve(CreateTagService);
+    const tag = await tagService.execute(request.body.name);
 
     return response.json(tag);
   }
