@@ -1,21 +1,12 @@
-import { getCustomRepository } from 'typeorm';
 import { ComplimentRepository, UserRepository } from '@/repositories';
-interface IComplimentRequest {
-  tag_id: string;
-  user_sender: string;
-  user_receiver: string;
-  message: string;
-}
+import { ComplimentDTO } from '@/dtos';
 
 export class CreateComplimentService {
-  async execute({
-    tag_id,
-    user_sender,
-    user_receiver,
-    message,
-  }: IComplimentRequest) {
-    const ComplimentRepositories = getCustomRepository(ComplimentRepository);
-    const userRepository = getCustomRepository(UserRepository);
+  async execute(data: ComplimentDTO) {
+    const { user_receiver, user_sender } = data;
+
+    const complimentRepository = new ComplimentRepository(); 
+    const userRepository = new UserRepository();
 
     if (user_sender === user_receiver) {
       throw new Error('Incorrect User Receiver');
@@ -27,15 +18,6 @@ export class CreateComplimentService {
       throw new Error('User Receiver does not exists!');
     }
 
-    const compliment = ComplimentRepositories.create({
-      tag_id,
-      user_receiver,
-      user_sender,
-      message,
-    });
-
-    await ComplimentRepositories.save(compliment);
-
-    return compliment;
+    return await complimentRepository.create(data);
   }
 }
