@@ -1,11 +1,9 @@
 import { getCustomRepository } from "typeorm";
-import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories";
+import { ComplimentRepository } from "../repositories";
 
 export class ListUserReceiveComplimentsService {
   async execute(user_id: string) {
-    const complimentsRepositories = getCustomRepository(
-      ComplimentsRepositories
-    );
+    const complimentsRepositories = getCustomRepository(ComplimentRepository);
 
     const compliments = await complimentsRepositories.find({
       where: {

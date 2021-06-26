@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { UsersRepositories } from "../repositories/UsersRepositories";
+import { UserRepository } from "../repositories";
 import { getCustomRepository } from "typeorm";
 
 export async function ensureAdmin(
@@ -9,9 +9,9 @@ export async function ensureAdmin(
 ) {
   const { user_id } = request;
 
-  const usersRepositories = getCustomRepository(UsersRepositories);
+  const userRepository = getCustomRepository(UserRepository);
 
-  const { admin } = await usersRepositories.findOne(user_id);
+  const { admin } = await userRepository.findOne(user_id);
 
   // Verificar se usuario admin
 

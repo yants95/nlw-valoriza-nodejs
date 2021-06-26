@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories";
-import { UsersRepositories } from "../repositories/UsersRepositories";
+import { ComplimentRepository } from "../repositories";
+import { UserRepository } from "../repositories";
 
 interface IComplimentRequest {
   tag_id: string;
@@ -16,29 +16,27 @@ export class CreateComplimentService {
     user_receiver,
     message,
   }: IComplimentRequest) {
-    const complimentsRepositories = getCustomRepository(
-      ComplimentsRepositories
-    );
-    const usersRepositories = getCustomRepository(UsersRepositories);
+    const ComplimentRepositories = getCustomRepository(ComplimentRepository);
+    const userRepository = getCustomRepository(UserRepository);
 
     if (user_sender === user_receiver) {
       throw new Error("Incorrect User Receiver");
     }
 
-    const userReceiverExists = await usersRepositories.findOne(user_receiver);
+    const userReceiverExists = await userRepository.findOne(user_receiver);
 
     if (!userReceiverExists) {
       throw new Error("User Receiver does not exists!");
     }
 
-    const compliment = complimentsRepositories.create({
+    const compliment = ComplimentRepositories.create({
       tag_id,
       user_receiver,
       user_sender,
       message,
     });
 
-    await complimentsRepositories.save(compliment);
+    await ComplimentRepositories.save(compliment);
 
     return compliment;
   }
