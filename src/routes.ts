@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import { ensureAdmin, ensureAuthenticated } from '@/middlewares';
 
 import { 
@@ -22,33 +22,33 @@ const listTagsController = new ListTagsController();
 const listUsersController = new ListUsersController();
 
 router.post(
-  "/tags",
+  '/tags',
   ensureAuthenticated,
   ensureAdmin,
   createTagController.handle
 );
 
-router.get("/tags", ensureAuthenticated, listTagsController.handle);
+router.get('/tags', ensureAuthenticated, listTagsController.handle);
 
-router.post("/users", createUserController.handle);
-router.post("/login", authenticateUserController.handle);
+router.post('/users', createUserController.handle);
+router.post('/login', authenticateUserController.handle);
 router.post(
-  "/compliments",
+  '/compliments',
   ensureAuthenticated,
   createComplimentController.handle
 );
 
 router.get(
-  "/users/compliments/send",
+  '/users/compliments/send',
   ensureAuthenticated,
   listUserSendComplimentsController.handle
 );
 router.get(
-  "/users/compliments/receive",
+  '/users/compliments/receive',
   ensureAuthenticated,
   listUserReceiveComplimentsController.handle
 );
 
-router.get("/users", ensureAuthenticated, listUsersController.handle);
+router.get('/users', ensureAuthenticated, listUsersController.handle);
 
 export { router };

@@ -1,11 +1,11 @@
 import 'module-alias/register'
-import "reflect-metadata";
-import express, { Request, Response, NextFunction } from "express";
-import "express-async-errors";
-import cors from "cors";
-import { router } from "./routes";
+import 'reflect-metadata';
+import express, { Request, Response, NextFunction } from 'express';
+import 'express-async-errors';
+import cors from 'cors';
+import { router } from '@/routes';
 
-import "./database";
+import '@/database';
 
 const app = express();
 app.use(cors());
@@ -23,10 +23,10 @@ app.use(
     }
 
     return response.status(500).json({
-      status: "error",
-      message: "Internal Server Error",
+      status: 'error',
+      message: 'Internal Server Error',
     });
   }
 );
 
-app.listen(3000, () => console.log("Server is running"));
+app.listen(3000, () => console.log('Server is running'));
