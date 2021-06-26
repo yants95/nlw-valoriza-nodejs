@@ -1,8 +1,8 @@
-import { getCustomRepository } from "typeorm";
-import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { getCustomRepository } from 'typeorm';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 
-import { UserRepository } from "../repositories";
+import { UserRepository } from '@/repositories';
 
 interface IAuthenticateRequest {
   email: string;
@@ -19,7 +19,7 @@ export class AuthenticateUserService {
     });
 
     if (!user) {
-      throw new Error("Email/Password incorrect");
+      throw new Error('Email/Password incorrect');
     }
 
     // verificar se senha está correta
@@ -28,7 +28,7 @@ export class AuthenticateUserService {
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error("Email/Password incorrect");
+      throw new Error('Email/Password incorrect');
     }
 
     // Gerar token
@@ -36,10 +36,10 @@ export class AuthenticateUserService {
       {
         email: user.email,
       },
-      "4f93ac9d10cb751b8c9c646bc9dbccb9",
+      '4f93ac9d10cb751b8c9c646bc9dbccb9',
       {
         subject: user.id,
-        expiresIn: "1d",
+        expiresIn: '1d',
       }
     );
 

@@ -1,6 +1,6 @@
-import { getCustomRepository } from "typeorm";
-import { TagRepository } from "../repositories";
-import { classToPlain } from "class-transformer";
+import { getCustomRepository } from 'typeorm';
+import { TagRepository } from '@/repositories';
+import { classToPlain } from 'class-transformer';
 
 export class ListTagsService {
   async execute() {
