@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { CreateComplimentService } from "../services/create-compliment-service";
+import { Request, Response } from 'express';
+import { CreateComplimentService } from '@/services';
 
 export class CreateComplimentController {
   async handle(request: Request, response: Response) {
