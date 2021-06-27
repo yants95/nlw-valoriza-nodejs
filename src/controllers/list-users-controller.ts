@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { ListUserService } from '@/services';
+import { container } from 'tsyringe';
 
 export class ListUsersController {
-  async handle(request: Request, response: Response) {
-    const listUsersService = new ListUserService();
-
-    const users = await listUsersService.execute();
+  async handle(_: Request, response: Response) {
+    const userService = container.resolve(ListUserService);
+    const users = await userService.execute();
 
     return response.json(users);
   }

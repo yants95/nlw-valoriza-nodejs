@@ -1,27 +1,23 @@
-import { UserRepository } from '@/repositories';
+import { UserRepository, UserRepositoryInterface } from '@/repositories';
 import { AuthenticateDTO } from '@/dtos';
 
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-
+import { inject, injectable } from 'tsyringe';
+@injectable()
 export class AuthenticateUserService {
+  constructor (@inject('UserRepository') private readonly userRepository: UserRepositoryInterface) {}
+
   async execute (data: AuthenticateDTO) {
     const { email, password } = data;
 
-    const userRepository = new UserRepository();
+    const user = await this.userRepository.findByEmail(email);
 
-    // Verificar se email existe
-    const user = await userRepository.findByEmail(email);
-
-    if (!user) {
-      throw new Error('Email/Password incorrect');
-    }
+    if (!user) throw new Error('Email/Password incorrect');
 
     const passwordMatch = await compare(password, user.password);
 
-    if (!passwordMatch) {
-      throw new Error('Email/Password incorrect');
-    }
+    if (!passwordMatch) throw new Error('Email/Password incorrect');
 
     // Gerar token
     const token = sign({ email: user.email },

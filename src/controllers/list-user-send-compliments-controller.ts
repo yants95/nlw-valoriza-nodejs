@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { ListUserSendComplimentsService } from '@/services';
+import { container } from 'tsyringe';
 
 export class ListUserSendComplimentsController {
   async handle(request: Request, response: Response) {
-    const { user_id } = request;
-
-    const listUserSendComplimentsService = new ListUserSendComplimentsService();
-
-    const compliments = await listUserSendComplimentsService.execute(user_id);
+    const complimentService = container.resolve(ListUserSendComplimentsService);
+    const compliments = await complimentService.execute(request.user_id);
 
     return response.json(compliments);
   }
