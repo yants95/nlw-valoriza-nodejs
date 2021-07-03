@@ -1,11 +1,16 @@
-import { TagRepository } from '@/repositories';
+import { TagRepositoryInterface } from '@/repositories';
 
 import { classToPlain } from 'class-transformer';
+import { injectable, inject } from 'tsyringe';
+@injectable()
 export class ListTagsService {
-  async execute() {
-    const tagRepository = new TagRepository();
+  constructor (
+    @inject('TagRepository')
+    private readonly tagRepository: TagRepositoryInterface
+  ) {}
 
-    const tags = await tagRepository.list();
+  async execute() {
+    const tags = await this.tagRepository.list();
 
     return classToPlain(tags);
   }
