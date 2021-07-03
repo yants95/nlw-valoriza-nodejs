@@ -1,11 +1,15 @@
-import { getCustomRepository } from 'typeorm';
-import { ComplimentRepository } from '@/repositories/';
+import { ComplimentRepositoryInterface } from '@/repositories';
 
+import { injectable, inject } from 'tsyringe';
+
+@injectable()
 export class ListUserSendComplimentsService {
-  async execute(sender_id: string) {
-    const complimentsRepositories = getCustomRepository(ComplimentRepository);
-    const compliments = await complimentsRepositories.listSendComplimentsByUser(sender_id);
+  constructor (
+    @inject('ComplimentRepository')
+    private readonly complimentRepository: ComplimentRepositoryInterface
+  ) {}
 
-    return compliments;
+  async execute(sender_id: string) {
+    return await this.complimentRepository.listSendComplimentsByUser(sender_id);
   }
 }
