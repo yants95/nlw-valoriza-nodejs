@@ -1,12 +1,17 @@
-import { getCustomRepository } from 'typeorm';
-import { UserRepository } from '@/repositories';
+import { UserRepositoryInterface } from '@/repositories';
+
 import { classToPlain } from 'class-transformer';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class ListUserService {
-  async execute() {
-    const userRepository = getCustomRepository(UserRepository);
+  constructor (
+    @inject('UserRepository')
+    private readonly userRepository: UserRepositoryInterface
+  ) {}
 
-    const users = await userRepository.list();
+  async execute() {
+    const users = await this.userRepository.list();
 
     return classToPlain(users);
   }
