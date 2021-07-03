@@ -3,6 +3,7 @@ import { UserDTO } from '@/dtos';
 
 import { hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
+import { AppError } from '@/errors';
 @injectable()
 export class CreateUserService {
   constructor (
@@ -13,15 +14,11 @@ export class CreateUserService {
   async execute(data: UserDTO) {
     const { email, password } = data;
 
-    if (!email) {
-      throw new Error('Email incorrect');
-    }
+    if (!email) throw new AppError('Email incorrect');
 
     const userAlreadyExists = await this.userRepository.findByEmail(email);
 
-    if (userAlreadyExists) {
-      throw new Error('User already exists');
-    }
+    if (userAlreadyExists) throw new AppError('User already exists');
 
     const userObject: UserDTO = {
       ...data,
