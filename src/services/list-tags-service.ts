@@ -2,6 +2,7 @@ import { TagRepositoryInterface } from '@/repositories';
 
 import { classToPlain } from 'class-transformer';
 import { injectable, inject } from 'tsyringe';
+
 @injectable()
 export class ListTagsService {
   constructor (
